@@ -25,7 +25,13 @@ const store = new Vuex.Store({
   getters,
   modules,
   mutations,
-  state
+  state:{
+    userName: '',
+    email: '',
+    password: '',
+    phone: '',
+    city: ''
+  }
 })
 
 export default store

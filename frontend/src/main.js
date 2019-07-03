@@ -15,9 +15,10 @@ import { sync } from 'vuex-router-sync'
 import App from './App'
 import i18n from '@/i18n'
 import router from '@/router'
+import axios from 'axios'
 import store from '@/store'
 
-// Sync store with router
+Vue.prototype.$http = axios
 sync(store, router)
 
 Vue.config.productionTip = false

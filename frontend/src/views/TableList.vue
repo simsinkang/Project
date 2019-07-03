@@ -1,45 +1,26 @@
 <template>
-  <v-container
-    fill-height
-    fluid
-    grid-list-xl
-  >
-    <v-layout
-      justify-center
-      wrap
-    >
-      <v-flex
-        md12
-      >
-        <material-card
-          color="blue"
-          title="회원 목록"
-          text="Here is a subtitle for this table"
-        >
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            hide-actions
-          >
-            <template
-              slot="headerCell"
-              slot-scope="{ header }"
-            >
-              <span
-                class="subheading font-weight-light text-success text--darken-3"
-                v-text="header.text"
-              />
+  <v-container fill-height fluid grid-list-xl>
+    <v-layout justify-center wrap>
+      <v-flex md12>
+        <material-card color="purple" title="회원 목록" text="Here is a subtitle for this table">
+          <v-form>
+          <v-data-table :headers="headers" :items="items" hide-actions>
+            <template slot="headerCell" slot-scope="{ header }">
+              <span class="subheading font-weight-light text-success text--darken-3" v-text="header.text" />
             </template>
-            <template
-              slot="items"
-              slot-scope="{ item }"
-            >
+            <template slot="items" slot-scope="{ item }">
+              <td>{{ item.Email }}</td>
               <td>{{ item.name }}</td>
-              <td>{{ item.country }}</td>
-              <td>{{ item.city }}</td>
-              <td class="text-xs-right">{{ item.salary }}</td>
+              <td>{{ item.Phone }}</td>
+              <td class="text-xs-right">{{ item.city }}</td>
             </template>
           </v-data-table>
+            <v-flex xs11 sm5>
+              <v-btn class="mx-0 font-weight-light" color="success" @click="list">
+                목록 보기
+              </v-btn>
+            </v-flex>
+          </v-form>
         </material-card>
       </v-flex>
     </v-layout>
@@ -52,59 +33,28 @@ export default {
     headers: [
       {
         sortable: false,
+        text: 'Email',
+        value: 'email',
+      },
+      {
+        sortable: false,
         text: 'Name',
         value: 'name'
       },
       {
         sortable: false,
-        text: 'Country',
-        value: 'country'
+        text: 'Phone',
+        value: 'Phone'
       },
       {
         sortable: false,
         text: 'City',
-        value: 'city'
-      },
-      {
-        sortable: false,
-        text: 'Salary',
-        value: 'salary',
+        value: 'city',
         align: 'right'
-      }
+      },
     ],
     items: [
-      {
-        name: 'Dakota Rice',
-        country: 'Niger',
-        city: 'Oud-Tunrhout',
-        salary: '$35,738'
-      },
-      {
-        name: 'Minerva Hooper',
-        country: 'Curaçao',
-        city: 'Sinaai-Waas',
-        salary: '$23,738'
-      }, {
-        name: 'Sage Rodriguez',
-        country: 'Netherlands',
-        city: 'Overland Park',
-        salary: '$56,142'
-      }, {
-        name: 'Philip Chanley',
-        country: 'Korea, South',
-        city: 'Gloucester',
-        salary: '$38,735'
-      }, {
-        name: 'Doris Greene',
-        country: 'Malawi',
-        city: 'Feldkirchen in Kārnten',
-        salary: '$63,542'
-      }, {
-        name: 'Mason Porter',
-        country: 'Chile',
-        city: 'Gloucester',
-        salary: '$78,615'
-      }
+      
     ]
   })
 }
