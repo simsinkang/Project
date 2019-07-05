@@ -31,6 +31,11 @@ public class User implements Serializable{
     @Column(name="phone") private String phone;
     @Column(name="city") private String city;
 
+    @Override
+    public String toString(){
+        return "User :[id:"+id+",userName:"+userName+",email:"+email+",password:"+password+",phone:"+phone+",city:"+city+"]";
+    }
+    
     @Builder
     private User(String userName, String email, String password, String phone, String city){
         this.userName = userName;
@@ -39,4 +44,8 @@ public class User implements Serializable{
         this.phone = phone;
         this.city = city;
     }
+
+	public boolean isPresent() {
+		return false;
+	}
 }
