@@ -16,7 +16,7 @@
     <div class="control-group">
       <label class="control-label" for="email">Email</label>
       <div class="controls">
-        <input type="text" placeholder="" class="input-xlarge" label="Email" v-model="email"/>
+        <input type="email" placeholder="" class="input-xlarge" label="Email" v-model="email"/>
         <p class="help-block">Please provide your Email</p>
       </div>
     </div>
@@ -43,8 +43,8 @@
     </div>
     <div class="control-group">
       <div class="controls">
-        <button class="btn btn-success" @click="save">가입</button>
-        <button class="btn btn-success" @click="cancle()">취소</button>
+        <input type="button" class="btn btn-success" @click="save" value="가입">
+        <input type="button" class="btn btn-warning" @click="cancle()" value="취소">
       </div>
     </div>
   </fieldset>
@@ -89,11 +89,11 @@ export default {
       }
       axios.post(`${this.context}/save`, JSON.stringify(data), {headers: headers})
         .then(res => {
-          alert(res.data.result)
+          alert("회원가입 성공")
           this.$router.push({path:'/loginform'})
         })
         .catch(e => {
-          alert('실패')
+          alert("회원가입 실패")
         })
     },
 

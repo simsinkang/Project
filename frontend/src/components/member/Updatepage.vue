@@ -39,8 +39,8 @@
     </div>
     <div class="control-group">
       <div class="controls"><br/>
-        <button class="btn btn-success">수정</button>
-        <button class="btn btn-success">탈퇴</button>
+        <input type="button" class="btn btn-success" @click="check" value="확인">
+        <input type="button" class="btn btn-warning" @click="cancle" value="취소">
       </div>
     </div>
   </fieldset>
@@ -72,39 +72,34 @@ export default {
   },
 
   methods: {
-    update () {
+    check () {
       let data = {
-        userName: '',
-        email: '',
-        password: '',
-        phone: '',
-        city: ''
+        userName: this.userName,
+        email: this.email,
+        password: this.password,
+        phone: this.phone,
+        city: this.city
       }
       let headers = {
         'Content-Type': 'application/json',
         'Authorization': 'JWT fefege..'
       }
-      axios.put(`${this.username}/update`, JSON.stringify(data), {headers: headers})
+      axios.put(`${this.context}/${this.$store.state.email}`, JSON.stringify(data), {headers: headers})
         .then(res => {
-          this.$store.state.userName = res.data.user.userName
-            this.$store.state.email = res.data.user.email
-            this.$store.state.password = res.data.user.password
-            this.$store.state.phone = res.data.user.phone
-            this.$store.state.city = res.data.user.city
-          alert(res.data)
+          alert('수정 성공')
+          this.$store.state.userName = res.data.userName
+          this.$store.state.email = res.data.email
+          this.$store.state.password = res.data.password
+          this.$store.state.phone = res.data.phone
+          this.$store.state.city = res.data.city
+          this.$router.push({path: '/mypage'})
         }).catch(e => {
-          alert('ERROR' + e)
+          alert('ERROR')
         })
     },
 
-    deleteById () {
-      axios.delete(`${this.context}/1`)
-        .then(res => {
-          alert(`탈퇴 성공`)
-        })
-        .catch(e => {
-          alert('ERROR')
-        })
+    cancle(){
+        this.$router.push({path:'/mypage'})
     }
   }
 }

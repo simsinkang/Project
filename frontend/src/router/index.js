@@ -5,6 +5,7 @@ import Mypage from '@/components/member/Mypage'
 import JoinForm from '@/components/member/JoinForm'
 import LoginForm from '@/components/member/LoginForm'
 import MemberList from '@/components/member/MemberList'
+import Updatepage from '@/components/member/Updatepage'
 
 
 Vue.use(Router)
@@ -16,6 +17,7 @@ export default new Router({
     {path: '/mypage', name: 'mypage', component: Mypage},
     {path: '/joinform', name: 'JoinForm', component: JoinForm},
     {path: '/loginform', name: 'loginform', component: LoginForm},
-    {path: '/memberlist', name: 'memberlist', component: MemberList}
+    {path: '/memberlist', name: 'memberlist', component: MemberList},
+    {path: '/updatepage', name: 'updatepage', component: Updatepage}
   ]
 })

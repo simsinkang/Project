@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.function.Supplier;
 
-import javax.persistence.EntityNotFoundException;
-
-import com.bit.web.common.lambda.ISupplier;
 import com.bit.web.domain.UserDTO;
 import com.bit.web.entites.User;
 import com.bit.web.repositories.UserRepository;
@@ -21,6 +18,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,28 +37,24 @@ public class UserController {
         return new ModelMapper();
     }
     
-    @PostMapping("/save")
-    public HashMap<String,Object> save(@RequestBody UserDTO dto){
-        HashMap<String,Object> map = new HashMap<>();
+    @PostMapping("save")
+    public HashMap<String, String> save(@RequestBody UserDTO dto) {
+        HashMap<String, String> map = new HashMap<>();
         User entity = new User();
         entity.setUserName(dto.getUserName());
         entity.setEmail(dto.getEmail());
         entity.setPassword(dto.getPassword());
         entity.setPhone(dto.getPhone());
         entity.setCity(dto.getCity());
-        User result = repo.save(entity);
-        if(result != null) {
-            map.put("result", "회원가입 성공");
-        } else {
-            map.put("result", "회원 가입 실패");
-        }
+        repo.save(entity);
+        map.put("result", "SUCCESS");
         return map;
     }
     
     @PostMapping("/login")
     public HashMap<String,Object> login(@RequestBody UserDTO dto){
-        System.out.println("email : "+ dto.getEmail());
-        System.out.println("PW : "+ dto.getPassword());
+        System.out.println("email : "+dto.getEmail());
+        System.out.println("PW : "+dto.getPassword());
         Supplier<HashMap<String,Object>> fx = (()->{
             return userService.login(dto.getEmail(), dto.getPassword());
         });
@@ -69,7 +63,7 @@ public class UserController {
 
     @GetMapping("")
     public Iterable<UserDTO> findAll(){
-        Iterable<User> entities = userService.findAll();
+        Iterable<User> entities = repo.findAll();
         List<UserDTO> list = new ArrayList<>();
         for(User s: entities){
             UserDTO cust = modelMapper.map(s, UserDTO.class);
@@ -79,29 +73,22 @@ public class UserController {
         return list;
     }
 
-    @GetMapping("/mypage/{id}")
-    public UserDTO findById(@PathVariable String id){
-        System.out.println("findById로 들어온 ID : "+id);
-        return modelMapper.map(repo.findById(Long.parseLong(id)), UserDTO.class);
-    }
-
-    @GetMapping("/mypage/{email}")
-    public UserDTO findByEmail(@PathVariable String email){
-        System.out.println("findById로 들어온 ID : "+email);
-        return modelMapper.map(repo.findByEmail(email),UserDTO.class);
-    }
-
-    @DeleteMapping("/delete/{email}")
-    public HashMap<String, String> deleteById(@RequestBody UserDTO dto){
-        HashMap<String, String> map = new HashMap<>();
-        User entity = new User();
+    @PutMapping("/{email}")
+    public UserDTO update(@PathVariable String email, @RequestBody UserDTO dto){
+        User entity = repo.findByEmail(email);
         entity.setUserName(dto.getUserName());
         entity.setEmail(dto.getEmail());
         entity.setPassword(dto.getPassword());
         entity.setPhone(dto.getPhone());
         entity.setCity(dto.getCity());
-        userService.delete(entity);
-        map.put("result", "탈퇴 성공");
-        return map;  
+        repo.save(entity);
+        UserDTO us = modelMapper.map(entity, UserDTO.class);
+        return us;
+    }
+    
+    @DeleteMapping("/remove/{email}")
+    public void remove(@PathVariable String email) {
+        User entity = repo.findByEmail(email);
+        repo.deleteById(entity.getId());
     }
 }
