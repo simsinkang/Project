@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="join">
 <Nav></Nav>
     <form class="form-horizontal"  >
   <fieldset>
@@ -103,3 +103,18 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#join form{
+		margin: 20%;
+}
+#join input{
+	width: 65%;
+}
+
+input{
+	height:35px;
+	margin: 10px 0px;
+}
+
+</style>

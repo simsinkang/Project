@@ -1,17 +1,17 @@
 <template>
-<div>
+<div id="login">
   <Nav></Nav>
   <form>
     <div id="legend">
       <legend class="">로그인</legend>
     </div>
-    <div class="form-group">
+    <div class="form-item">
       <label for="email">Email</label>
       <input type="email" class="form-control" label="Email" v-model="email" placeholder="Enter Email"/>
-      <br/><br/>
+      <br/>
       <label for="password">Password</label>
       <input type="password" class="form-control" label="Password" placeholder="Enter Password"  v-model="password"/>
-    </div>
+    </div><br/><br/>
     <input type="button" class="btn btn-success" @click="login" value="로그인">
     <input type="button" class="btn btn-warning" @click="join" value="회원가입">
   </form><br/><br/><br/><br/><br/><br/>
@@ -75,4 +75,16 @@ export default {
 </script>
 
 <style scoped>
+#login form{
+		margin: 10%;
+}
+#login input{
+	width: 65%;
+}
+
+input{
+	height:35px;
+	margin: 10px 0px;
+}
+
 </style>

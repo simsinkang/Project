@@ -21,6 +21,11 @@ export default {
 </script>
 <style scoped>
 .footer{
-  background-color: rgb(177, 253, 203);
+  background-color: #c9e1f5;  
+  margin:0;  
+  font-size: 30px;
+  font-weight: bold;
+  text-align: right;
+  padding-right:15%;
 }
 </style>

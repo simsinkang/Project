@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="mypage">
 <Nav></Nav>
     <div class="form-horizontal" >
       <div></div>
@@ -89,3 +89,8 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+
+</style>
